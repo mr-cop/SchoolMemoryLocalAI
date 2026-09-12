@@ -1,0 +1,42 @@
+name: Full model candidate verification
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Candidate semantic version
+        required: true
+        default: 1.0.0
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate public source
+        run: |
+          python3 scripts/check_public_safety.py
+          python3 scripts/validate_lock.py
+          python3 -m unittest discover -s tests -v
+      - name: Acquire exact locked revision
+        run: python3 scripts/acquire_model.py models/locked
+      - name: Build deterministic candidate
+        run: python3 scripts/build_release.py --version "${{ inputs.version }}"
+      - name: Independently validate candidate
+        run: python3 scripts/validate_release.py "dist/SchoolMemoryLocalAI-${{ inputs.version }}.tar.gz"
+      - name: Install MLX runtime
+        run: python3 -m pip install 'mlx-lm==0.24.0'
+      - name: Generic runtime smoke test
+        run: python3 scripts/smoke_test_runtime.py models/locked --timeout 180
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SchoolMemoryLocalAI-${{ inputs.version }}-candidate
+          path: |
+            dist/SchoolMemoryLocalAI-${{ inputs.version }}.tar.gz
+            dist/SchoolMemoryLocalAI-${{ inputs.version }}.sha256
+            dist/manifest-${{ inputs.version }}.json
+          if-no-files-found: error

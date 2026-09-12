@@ -38,3 +38,19 @@ Before promotion to `recommended`:
 7. no private host artefacts are present.
 
 Product-specific quality evaluation belongs outside this public repository.
+
+## Candidate build and GitHub Release
+
+Use the manually dispatched **Full model candidate verification** workflow or follow the commands in `README.md`. The workflow acquires the exact commit, verifies the frozen weight, builds and independently validates the archive, runs the generic MLX smoke test, and uploads—but does not publish—the three candidate assets.
+
+A maintainer must verify the downloaded workflow artefact, then create `SchoolMemoryLocalAI v1.0.0` with:
+
+- `SchoolMemoryLocalAI-1.0.0.tar.gz`;
+- `SchoolMemoryLocalAI-1.0.0.sha256`;
+- `manifest-1.0.0.json`.
+
+Publish the validated upload first as a GitHub pre-release. Only after that public asset exists, has been downloaded and revalidated, and its immutable HTTPS URL and real checksum are known may committed latest metadata become `recommended`; promotion then removes the pre-release flag. GitHub assets are immutable under this policy: never delete and replace one under an existing version. Correct any byte with a new semantic version. No workflow in this repository automatically publishes a release.
+
+## Validation independence
+
+The release validator recalculates hashes and sizes, parses archive members without extraction, and separately enforces structure, file allow-lists, metadata consistency, and archive safety. The lightweight test suite creates synthetic packages and exercises both successful reproducibility and adversarial failures without downloading model weights.
