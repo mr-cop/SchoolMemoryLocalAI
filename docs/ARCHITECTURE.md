@@ -73,3 +73,9 @@ A newer release may be offered only when:
 ## Withdrawal
 
 A manifest may mark a release `withdrawn`. A host should stop offering a withdrawn release for new installation. Whether an already installed release is disabled is a host policy decision and must not be controlled remotely without an explicit host-side rule.
+
+## Package boundary and rollback
+
+Acquisition is exact-revision, allow-list based, non-executing, hash checked, and atomic. Packaging consumes only that materialised directory and public licence/provenance files. Validation is a separate entry point that parses every archive entry directly and does not trust the builder's conclusions.
+
+Storage thresholds belong to release policy, not to a particular upstream family. Hosts should stage downloads and extraction, activate versioned installations atomically, retain the last successfully loaded version for rollback, and never mutate an installed version in place.
