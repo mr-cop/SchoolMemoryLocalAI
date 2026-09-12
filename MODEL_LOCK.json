@@ -1,0 +1,29 @@
+{
+  "logicalModelId": "SchoolMemoryLocalAI",
+  "contractVersion": 1,
+  "releaseLine": "1.x",
+  "upstream": {
+    "provider": "Hugging Face",
+    "repository": "mlx-community/Qwen3-0.6B-4bit",
+    "revision": "73e3e38d981303bc594367cd910ea6eb48349da8",
+    "baseModel": "Qwen/Qwen3-0.6B",
+    "licence": "Apache-2.0",
+    "conversionTool": {
+      "name": "mlx-lm",
+      "version": "0.24.0"
+    }
+  },
+  "runtime": {
+    "family": "mlx",
+    "format": "safetensors",
+    "quantisation": {
+      "bits": 4,
+      "groupSize": 64
+    }
+  },
+  "weights": {
+    "file": "model.safetensors",
+    "sizeBytes": 335450584,
+    "sha256": "392e8d466d56100ada00eb82031fb854297fc9e389b7d303eba3af114e87bce2"
+  }
+}
