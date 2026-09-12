@@ -1,0 +1,21 @@
+# Local/private safety terms
+.public-safety-denylist.txt
+
+# Model payloads and build output
+models/
+downloads/
+dist/
+build/
+*.safetensors
+*.gguf
+*.tar
+*.tar.gz
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# macOS
+.DS_Store
