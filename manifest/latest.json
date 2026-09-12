@@ -1,0 +1,33 @@
+{
+  "logicalModelId": "SchoolMemoryLocalAI",
+  "contractVersion": 1,
+  "version": "1.0.0",
+  "status": "candidate",
+  "runtime": {
+    "family": "mlx",
+    "format": "safetensors"
+  },
+  "compatibility": {
+    "minimumHostContract": 1,
+    "minimumOS": "17.0",
+    "architectures": [
+      "arm64"
+    ]
+  },
+  "storage": {
+    "downloadBytes": 351000000,
+    "installedBytes": 365000000,
+    "warningFreeBytes": 1000000000,
+    "minimumFreeBytes": 500000000
+  },
+  "asset": {
+    "fileName": "SchoolMemoryLocalAI-1.0.0.tar.gz",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "downloadURL": null
+  },
+  "upstream": {
+    "repository": "mlx-community/Qwen3-0.6B-4bit",
+    "revision": "73e3e38d981303bc594367cd910ea6eb48349da8",
+    "licence": "Apache-2.0"
+  }
+}
