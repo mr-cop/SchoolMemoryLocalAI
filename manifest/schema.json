@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schoolmemorylocalai/manifest.schema.json",
+  "title": "SchoolMemoryLocalAI Release Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "logicalModelId",
+    "contractVersion",
+    "version",
+    "status",
+    "runtime",
+    "compatibility",
+    "storage",
+    "asset",
+    "upstream"
+  ],
+  "properties": {
+    "logicalModelId": {
+      "const": "SchoolMemoryLocalAI"
+    },
+    "contractVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "status": {
+      "enum": [
+        "candidate",
+        "recommended",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family",
+        "format"
+      ],
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimumHostContract",
+        "minimumOS"
+      ],
+      "properties": {
+        "minimumHostContract": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minimumOS": {
+          "type": "string"
+        },
+        "architectures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "downloadBytes",
+        "installedBytes",
+        "warningFreeBytes",
+        "minimumFreeBytes"
+      ],
+      "properties": {
+        "downloadBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "installedBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "warningFreeBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minimumFreeBytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fileName",
+        "sha256"
+      ],
+      "properties": {
+        "fileName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "downloadURL": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        }
+      }
+    },
+    "upstream": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "revision",
+        "licence"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 7
+        },
+        "licence": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
